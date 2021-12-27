@@ -1,0 +1,66 @@
+#include <iostream>
+#include <ctime>
+#include <stdio.h>
+using namespace std;
+#define N 5
+#define R 10
+
+void iniz(int *begin, int n) {
+	for (int i = 0; i < n; ++i) {
+		for (int j = 0; j < n; ++j) {
+			*begin = rand() % R - R / 2;
+			begin++;
+		}
+
+
+	}
+}
+
+void print_array1(int *beg, int *end) {
+	for (int *i = beg, j = 0; i <= end; i++, j++) {
+		cout << *i << '\t';
+	}
+}
+
+void print_array2(int *beg, int n) {
+	for (int i = 0; i < n; ++i) {
+		for (int j = 0; j < n; ++j) {
+			cout << *beg << '\t';
+			beg++;
+		}
+		cout << '\n';
+	}
+}
+
+void task_1(int *beg_array, int *end_array, int *beg_answer, int n) {
+	for (int *i = beg_array + 1; i < beg_array + n - 1; i += 2) {
+		int ans_collumn = 0;
+		for (int *j = i; j < end_array; j += n) {
+			ans_collumn += *j;
+		}
+		*beg_answer = ans_collumn;
+		beg_answer++;
+	}
+
+}
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	srand(time(NULL));
+
+	int array[N][N];
+	int array_answer[N / 2];
+
+	iniz(&array[0][0], N);
+	cout << "Массив" << '\n';
+	print_array2(&array[0][0], N);
+
+	cout << "Ответ:" << '\n';
+	task_1(&array[0][0], &array[N - 1][N - 1], &array_answer[0], N);
+	print_array1(&array_answer[0], &array_answer[N / 2 - 1]);
+
+
+
+
+	return 0;
+}
